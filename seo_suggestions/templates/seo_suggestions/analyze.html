@@ -1,0 +1,1561 @@
+{% load seo_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SEO Analysis - AI SEO Analyzer
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #172033;
+        }
+
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .logo {
+
+            font-size: 21px;
+
+            font-weight: 700;
+        }
+
+        .logo span {
+
+            color: #2563eb;
+        }
+
+        .home-link {
+
+            text-decoration: none;
+
+            color: #475467;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding:
+                40px 20px
+                80px;
+        }
+
+
+        .page-header {
+
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+
+            margin:
+                0 0 8px;
+
+            font-size: 32px;
+        }
+
+        .page-header p {
+
+            margin: 0;
+
+            color: #667085;
+        }
+
+        .url {
+
+            margin-top: 12px;
+
+            color: #2563eb;
+
+            word-break: break-all;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .error {
+
+            background: #fef3f2;
+
+            border:
+                1px solid #fecdca;
+
+            color: #b42318;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================
+           SCORE SECTION
+        ========================================= */
+
+        .score-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                280px 1fr;
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .score-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, .04);
+        }
+
+
+        .score-circle {
+
+            width: 170px;
+
+            height: 170px;
+
+            margin:
+                10px auto
+                20px;
+
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    #2563eb
+                    calc(var(--score) * 1%),
+                    #e5e7eb 0
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .score-inner {
+
+            width: 135px;
+
+            height: 135px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .score-number {
+
+            font-size: 42px;
+
+            font-weight: 800;
+
+            line-height: 1;
+        }
+
+        .score-out {
+
+            color: #667085;
+
+            margin-top: 6px;
+
+            font-size: 13px;
+        }
+
+
+        .score-status {
+
+            font-weight: 600;
+
+            margin-top: 10px;
+        }
+
+
+        /* =========================================
+           CATEGORY CARDS
+        ========================================= */
+
+        .categories {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap: 15px;
+        }
+
+
+        .category-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+
+        .category-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+
+        .category-name {
+
+            font-weight: 600;
+
+            text-transform: capitalize;
+        }
+
+
+        .category-score {
+
+            font-weight: 700;
+
+            color: #2563eb;
+        }
+
+
+        .progress {
+
+            width: 100%;
+
+            height: 8px;
+
+            background: #eaecf0;
+
+            border-radius: 50px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+
+            height: 100%;
+
+            background: #2563eb;
+
+            border-radius: 50px;
+
+            width: var(--width);
+        }
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .section {
+
+            margin-top: 35px;
+        }
+
+
+        .section-header {
+
+            margin-bottom: 18px;
+        }
+
+
+        .section-header h2 {
+
+            margin: 0 0 6px;
+
+            font-size: 24px;
+        }
+
+
+        .section-header p {
+
+            margin: 0;
+
+            color: #667085;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           CRAWL CARDS
+        ========================================= */
+
+        .crawl-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap: 18px;
+        }
+
+
+        .crawl-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            padding: 22px;
+
+            border-radius: 12px;
+        }
+
+
+        .crawl-label {
+
+            color: #667085;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .crawl-value {
+
+            font-size: 28px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================
+           ISSUE CARD
+        ========================================= */
+
+        .issue-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-left:
+                5px solid #f59e0b;
+
+            border-radius: 12px;
+
+            padding: 24px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .issue-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .issue-title {
+
+            margin: 0;
+
+            font-size: 18px;
+        }
+
+
+        .priority {
+
+            display: inline-block;
+
+            padding:
+                5px 10px;
+
+            border-radius: 50px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+        }
+
+
+        .priority-high {
+
+            background: #fef3f2;
+
+            color: #b42318;
+        }
+
+
+        .priority-medium {
+
+            background: #fffaeb;
+
+            color: #b54708;
+        }
+
+
+        .priority-low {
+
+            background: #eff8ff;
+
+            color: #175cd3;
+        }
+
+
+        .issue-meta {
+
+            margin-top: 15px;
+
+            color: #667085;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================================
+           AI RECOMMENDATION
+        ========================================= */
+
+        .recommendation {
+
+            background: white;
+
+            border:
+                1px solid #d0d5dd;
+
+            border-radius: 14px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+        }
+
+
+        .recommendation-header {
+
+            padding: 22px;
+
+            border-bottom:
+                1px solid #eaecf0;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .recommendation-title {
+
+            margin: 0;
+
+            font-size: 19px;
+        }
+
+
+        .recommendation-body {
+
+            padding: 22px;
+        }
+
+
+        .recommendation-body p {
+
+            color: #475467;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           SCORE IMPROVEMENT
+        ========================================= */
+
+        .score-improvement {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            background: #ecfdf3;
+
+            border:
+                1px solid #abefc6;
+
+            padding: 16px;
+
+            border-radius: 10px;
+
+            margin:
+                20px 0;
+        }
+
+
+        .old-score {
+
+            color: #667085;
+
+            font-weight: 600;
+        }
+
+
+        .arrow {
+
+            color: #12b76a;
+
+            font-size: 20px;
+
+            font-weight: 700;
+        }
+
+
+        .new-score {
+
+            color: #027a48;
+
+            font-size: 22px;
+
+            font-weight: 800;
+        }
+
+
+        .gain {
+
+            color: #027a48;
+
+            font-weight: 700;
+
+            margin-left: auto;
+        }
+
+
+        /* =========================================
+           CODE
+        ========================================= */
+
+        .code-title {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #475467;
+
+            margin:
+                20px 0 8px;
+        }
+
+
+        .code {
+
+            background: #101828;
+
+            color: #e5e7eb;
+
+            padding: 18px;
+
+            border-radius: 9px;
+
+            overflow-x: auto;
+        }
+
+
+        .code pre {
+
+            margin: 0;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+            font-family:
+                Consolas,
+                Monaco,
+                monospace;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           ACTION BOX
+        ========================================= */
+
+        .action-box {
+
+            background: #eff8ff;
+
+            border:
+                1px solid #b2ddff;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-top: 18px;
+        }
+
+
+        .action-box strong {
+
+            color: #175cd3;
+        }
+
+
+        /* =========================================
+           VALIDATION
+        ========================================= */
+
+        .validation {
+
+            background: #f9fafb;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-top: 15px;
+
+            color: #475467;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           EMPTY
+        ========================================= */
+
+        .empty {
+
+            background: #ecfdf3;
+
+            border:
+                1px solid #abefc6;
+
+            color: #027a48;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           BUTTON
+        ========================================= */
+
+        .back-button {
+
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding:
+                12px 20px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width: 800px) {
+
+            .score-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+
+                grid-template-columns: 1fr;
+            }
+
+            .crawl-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .issue-header {
+
+                flex-direction: column;
+            }
+
+            .recommendation-header {
+
+                flex-direction: column;
+            }
+
+        }
+
+
+        @media(max-width: 500px) {
+
+            .container {
+
+                padding:
+                    25px 15px
+                    60px;
+            }
+
+            .page-header h1 {
+
+                font-size: 26px;
+            }
+
+            .score-circle {
+
+                width: 145px;
+
+                height: 145px;
+            }
+
+            .score-inner {
+
+                width: 115px;
+
+                height: 115px;
+            }
+
+            .score-number {
+
+                font-size: 34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        AI
+        <span>
+            SEO Analyzer
+        </span>
+
+    </div>
+
+
+    <a
+        href="{% url 'seo-home' %}"
+        class="home-link"
+    >
+
+        ← New Analysis
+
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    {% if success %}
+
+
+        <!-- =================================================
+             HEADER
+        ================================================= -->
+
+        <div class="page-header">
+
+            <h1>
+                SEO Analysis Report
+            </h1>
+
+            <p>
+                Here's your website's SEO health report
+                and AI-powered improvement suggestions.
+            </p>
+
+            <div class="url">
+
+                {{ url }}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SCORE + CATEGORY
+        ================================================= -->
+
+        <div class="score-layout">
+
+
+            <!-- MAIN SCORE -->
+
+            <div class="score-card">
+
+                <div class="score-circle"
+                     style="--score: {{ current_score }};">
+
+                    <div class="score-inner">
+
+                        <div class="score-number">
+
+                            {{ current_score }}
+
+                        </div>
+
+                        <div class="score-out">
+
+                            out of 100
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% if current_score >= 80 %}
+
+                    <div class="score-status">
+
+                        Excellent SEO
+
+                    </div>
+
+                {% elif current_score >= 60 %}
+
+                    <div class="score-status">
+
+                        Good SEO
+
+                    </div>
+
+                {% elif current_score >= 40 %}
+
+                    <div class="score-status">
+
+                        Needs Improvement
+
+                    </div>
+
+                {% else %}
+
+                    <div class="score-status">
+
+                        Critical SEO Issues
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- CATEGORY SCORES -->
+
+            <div class="categories">
+
+                {% for category, data in category_scores.items %}
+
+                    <div class="category-card">
+
+                        <div class="category-top">
+
+                            <div class="category-name">
+
+                                {{ category|replace_underscore }}
+
+                            </div>
+
+                            <div class="category-score">
+
+                                {{ data.score }}/{{ data.maximum }}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="
+                                    --width:
+                                    {% widthratio data.score data.maximum 100 %}%;
+                                "
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="category-card">
+
+                        No category scores available.
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CRAWL INFORMATION
+        ================================================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    Crawl Information
+                </h2>
+
+                <p>
+                    Basic information collected from the webpage.
+                </p>
+
+            </div>
+
+
+            <div class="crawl-grid">
+
+
+                <div class="crawl-card">
+
+                    <div class="crawl-label">
+
+                        HTTP Status
+
+                    </div>
+
+                    <div class="crawl-value">
+
+                        {{ crawl.http_status }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="crawl-card">
+
+                    <div class="crawl-label">
+
+                        Word Count
+
+                    </div>
+
+                    <div class="crawl-value">
+
+                        {{ crawl.word_count }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DETECTED ISSUES
+        ================================================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    Detected SEO Issues
+                </h2>
+
+                <p>
+                    Problems detected by the deterministic
+                    SEO analyzer.
+                </p>
+
+            </div>
+
+
+            {% for issue in detected_issues %}
+
+
+                <div class="issue-card">
+
+                    <div class="issue-header">
+
+                        <h3 class="issue-title">
+
+                            {{ issue.message }}
+
+                        </h3>
+
+
+                        {% if issue.priority|lower == "high" %}
+
+                            <span class="priority priority-high">
+
+                                High
+
+                            </span>
+
+                        {% elif issue.priority|lower == "medium" %}
+
+                            <span class="priority priority-medium">
+
+                                Medium
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="priority priority-low">
+
+                                {{ issue.priority }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="issue-meta">
+
+                        <strong>
+                            Category:
+                        </strong>
+
+                        {{ issue.category|title }}
+
+                        <br>
+
+
+                        {% if issue.location %}
+
+                            <strong>
+                                Selector:
+                            </strong>
+
+                            {{ issue.location.selector|default:"Not available" }}
+
+                            <br>
+
+                            <strong>
+                                Line:
+                            </strong>
+
+                            {{ issue.location.line_start|default:"Not available" }}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+
+                <div class="empty">
+
+                    <strong>
+                        Excellent!
+                    </strong>
+
+                    <br>
+
+                    No major SEO issues were detected.
+
+                </div>
+
+
+            {% endfor %}
+
+        </section>
+
+
+        <!-- =================================================
+             AI RECOMMENDATIONS
+        ================================================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    AI Developer Recommendations
+                </h2>
+
+                <p>
+                    Gemini-powered suggestions showing exactly
+                    what to change and the expected SEO score.
+                </p>
+
+            </div>
+
+
+            {% if ai_analysis.recommendations %}
+
+
+                {% for item in ai_analysis.recommendations %}
+
+
+                    <div class="recommendation">
+
+
+                        <!-- RECOMMENDATION HEADER -->
+
+                        <div class="recommendation-header">
+
+
+                            <div>
+
+                                <h3 class="recommendation-title">
+
+                                    {{ forloop.counter }}.
+                                    {{ item.title }}
+
+                                </h3>
+
+                            </div>
+
+
+                            {% if item.priority|lower == "high" %}
+
+                                <span class="priority priority-high">
+
+                                    HIGH
+
+                                </span>
+
+                            {% elif item.priority|lower == "medium" %}
+
+                                <span class="priority priority-medium">
+
+                                    MEDIUM
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="priority priority-low">
+
+                                    {{ item.priority }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- BODY -->
+
+                        <div class="recommendation-body">
+
+
+                            <!-- PROBLEM -->
+
+                            {% if item.problem %}
+
+                                <p>
+
+                                    <strong>
+                                        Problem:
+                                    </strong>
+
+                                    {{ item.problem }}
+
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- WHY -->
+
+                            {% if item.why_it_matters %}
+
+                                <p>
+
+                                    <strong>
+                                        Why it matters:
+                                    </strong>
+
+                                    {{ item.why_it_matters }}
+
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- LOCATION -->
+
+                            {% if item.location %}
+
+                                <div class="issue-meta">
+
+                                    <strong>
+                                        Location:
+                                    </strong>
+
+                                    {{ item.location.selector|default:"Not available" }}
+
+                                    <br>
+
+                                    <strong>
+                                        Line:
+                                    </strong>
+
+                                    {{ item.location.line_start|default:"Not available" }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- SCORE IMPROVEMENT -->
+
+                            {% if item.expected_score %}
+
+                                <div class="score-improvement">
+
+                                    <span class="old-score">
+
+                                        {{ item.current_score }}/100
+
+                                    </span>
+
+
+                                    <span class="arrow">
+
+                                        →
+
+                                    </span>
+
+
+                                    <span class="new-score">
+
+                                        {{ item.expected_score }}/100
+
+                                    </span>
+
+
+                                    {% if item.score_gain %}
+
+                                        <span class="gain">
+
+                                            +{{ item.score_gain }} points
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- BEFORE -->
+
+                            {% if item.before %}
+
+                                <div class="code-title">
+
+                                    BEFORE
+
+                                </div>
+
+                                <div class="code">
+
+                                    <pre>{{ item.before }}</pre>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- AFTER -->
+
+                            {% if item.after %}
+
+                                <div class="code-title">
+
+                                    AFTER
+
+                                </div>
+
+                                <div class="code">
+
+                                    <pre>{{ item.after }}</pre>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- DEVELOPER ACTION -->
+
+                            {% if item.developer_action %}
+
+                                <div class="action-box">
+
+                                    <strong>
+                                        Developer Action
+                                    </strong>
+
+                                    <br>
+
+                                    {{ item.developer_action }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- VALIDATION -->
+
+                            {% if item.validation %}
+
+                                <div class="validation">
+
+                                    <strong>
+                                        How to Validate
+                                    </strong>
+
+                                    <br>
+
+                                    {{ item.validation }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="empty">
+
+                    AI did not return any recommendations.
+
+                </div>
+
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             BACK BUTTON
+        ================================================= -->
+
+        <a
+            href="{% url 'seo-home' %}"
+            class="back-button"
+        >
+
+            ← Analyze Another Website
+
+        </a>
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             ERROR STATE
+        ================================================= -->
+
+        <div class="error">
+
+            <h2>
+                SEO Analysis Failed
+            </h2>
+
+            <p>
+
+                {{ message|default:"Unable to analyze this website." }}
+
+            </p>
+
+            <a
+                href="{% url 'seo-home' %}"
+                class="back-button"
+            >
+
+                Try Again
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</main>
+
+
+</body>
+
+</html>

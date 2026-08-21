@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI SEO Analyzer
+    </title>
+
+    <meta
+        name="description"
+        content="Analyze your website SEO score and get AI-powered developer recommendations."
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f7f9fc;
+            color: #111827;
+        }
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            max-width: 1000px;
+            margin: auto;
+
+            padding:
+                90px 20px
+                70px;
+
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+
+            background: #eff6ff;
+            color: #1d4ed8;
+
+            padding:
+                7px 14px;
+
+            border-radius: 50px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            line-height: 1.1;
+
+            margin:
+                0 auto
+                20px;
+
+            max-width: 850px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 680px;
+
+            margin:
+                0 auto
+                35px;
+
+            color: #6b7280;
+
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+
+        /* ANALYZER */
+
+        .analyzer {
+            max-width: 800px;
+
+            margin: auto;
+
+            background: #ffffff;
+
+            padding: 10px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+        .form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .url-input {
+            flex: 1;
+
+            border: 0;
+
+            outline: none;
+
+            padding:
+                17px 18px;
+
+            font-size: 16px;
+
+            border-radius: 10px;
+        }
+
+        .analyze-btn {
+
+            border: 0;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding:
+                0 28px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .analyze-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* FEATURES */
+
+        .features {
+
+            max-width: 1100px;
+
+            margin:
+                30px auto
+                80px;
+
+            padding: 0 20px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 18px;
+        }
+
+        .feature {
+
+            background: #ffffff;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+        .feature-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+
+            border-radius: 9px;
+
+            margin-bottom: 15px;
+
+            font-size: 20px;
+        }
+
+        .feature h3 {
+
+            margin:
+                0 0 8px;
+
+            font-size: 16px;
+        }
+
+        .feature p {
+
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* HOW IT WORKS */
+
+        .how {
+
+            max-width: 1000px;
+
+            margin:
+                0 auto
+                80px;
+
+            padding: 0 20px;
+
+            text-align: center;
+        }
+
+        .how h2 {
+
+            font-size: 32px;
+
+            margin-bottom: 35px;
+        }
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap: 20px;
+        }
+
+        .step {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            padding: 25px;
+
+            border-radius: 12px;
+        }
+
+        .number {
+
+            width: 40px;
+            height: 40px;
+
+            margin:
+                0 auto
+                15px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+        .step h3 {
+            margin:
+                0 0 8px;
+        }
+
+        .step p {
+
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 25px;
+
+            font-size: 13px;
+        }
+
+
+        /* LOADING */
+
+        .loading {
+
+            display: none;
+
+            margin-top: 20px;
+
+            color: #2563eb;
+
+            font-size: 14px;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width: 850px) {
+
+            .features {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .hero {
+
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+
+                font-size: 36px;
+            }
+
+            .hero p {
+
+                font-size: 16px;
+            }
+
+            .form {
+
+                flex-direction: column;
+            }
+
+            .url-input {
+
+                padding: 16px;
+            }
+
+            .analyze-btn {
+
+                height: 52px;
+            }
+
+            .features {
+
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+
+                padding: 0 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     NAVBAR
+========================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        AI
+        <span>
+            SEO Analyzer
+        </span>
+
+    </div>
+
+    <a
+        href="{% url 'seo-home' %}"
+        class="nav-link"
+    >
+        SEO Analyzer
+    </a>
+
+</nav>
+
+
+<!-- ==========================================
+     HERO
+========================================== -->
+
+<section class="hero">
+
+
+    <div class="badge">
+
+        AI-Powered SEO Analysis
+
+    </div>
+
+
+    <h1>
+
+        Analyze Your Website
+
+        <span>
+            SEO Score
+        </span>
+
+        & Improve It
+
+    </h1>
+
+
+    <p>
+
+        Scan your webpage, identify technical and
+        on-page SEO problems, and get actionable
+        developer recommendations with expected
+        score improvements.
+
+    </p>
+
+
+    <!-- ==========================================
+         ANALYZER FORM
+    =========================================== -->
+
+    <div class="analyzer">
+
+        <form
+            method="POST"
+            action="{% url 'seo-analyze' %}"
+            class="form"
+            id="seoForm"
+        >
+
+            {% csrf_token %}
+
+
+            <input
+                type="url"
+                name="url"
+                class="url-input"
+                placeholder="https://example.com"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="analyze-btn"
+                id="analyzeButton"
+            >
+
+                Analyze SEO
+
+            </button>
+
+        </form>
+
+
+        <div
+            class="loading"
+            id="loading"
+        >
+
+            Analyzing website...
+            Please wait.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     FEATURES
+========================================== -->
+
+<section class="features">
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ✓
+        </div>
+
+        <h3>
+            SEO Score
+        </h3>
+
+        <p>
+            Get a deterministic SEO score
+            out of 100 based on multiple
+            technical and on-page factors.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            AI
+        </div>
+
+        <h3>
+            AI Recommendations
+        </h3>
+
+        <p>
+            Gemini analyzes detected problems
+            and generates developer-friendly
+            SEO recommendations.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            &lt;/&gt;
+        </div>
+
+        <h3>
+            Developer Fixes
+        </h3>
+
+        <p>
+            See what needs to change in your
+            HTML with Before and After code
+            suggestions.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ↑
+        </div>
+
+        <h3>
+            Expected Score
+        </h3>
+
+        <p>
+            Understand how each recommended
+            change can improve your SEO score.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- ==========================================
+     HOW IT WORKS
+========================================== -->
+
+<section class="how">
+
+    <h2>
+        How It Works
+    </h2>
+
+
+    <div class="steps">
+
+
+        <div class="step">
+
+            <div class="number">
+                1
+            </div>
+
+            <h3>
+                Enter URL
+            </h3>
+
+            <p>
+                Enter the webpage you want
+                to analyze.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">
+                2
+            </div>
+
+            <h3>
+                Analyze
+            </h3>
+
+            <p>
+                Our crawler analyzes the
+                rendered webpage and SEO signals.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">
+                3
+            </div>
+
+            <h3>
+                Improve
+            </h3>
+
+            <p>
+                Get AI-powered recommendations
+                and expected score improvements.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer>
+
+    AI SEO Analyzer
+
+    © 2026
+
+</footer>
+
+
+<script>
+
+    const form =
+        document.getElementById(
+            "seoForm"
+        );
+
+    const button =
+        document.getElementById(
+            "analyzeButton"
+        );
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    form.addEventListener(
+        "submit",
+        function () {
+
+            button.disabled = true;
+
+            button.innerText =
+                "Analyzing...";
+
+            loading.style.display =
+                "block";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

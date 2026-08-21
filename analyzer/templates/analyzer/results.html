@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -557,6 +557,736 @@
         </div>
 
     </div>
+
+</div>
+
+</body>
+
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Website Analysis Results</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            padding: 40px 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: #e2e8f0;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #1d4ed8 0%,
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #6d28d9 0%,
+                    transparent 30%
+                ),
+                #0f172a;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+        /* PAGE TITLE */
+
+        .page-title {
+            text-align: center;
+
+            font-size: 38px;
+
+            margin-bottom: 35px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa,
+                    #c084fc
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-bottom: 25px;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.12);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+
+            font-size: 23px;
+
+            color: #ffffff;
+        }
+
+        /* SECTION HEADER */
+
+        .section-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 0;
+        }
+
+        /* DOWNLOAD EXCEL BUTTON */
+
+        .download-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 11px 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #15803d
+                );
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px
+                rgba(22, 163, 74, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(22, 163, 74, 0.35);
+
+            opacity: 0.95;
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        /* WEBSITE INFORMATION */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .info-card {
+            padding: 20px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(15, 23, 42, 0.65);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.08);
+        }
+
+        .info-card strong {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            color: #94a3b8;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+        .info-card span {
+            display: block;
+
+            color: #f8fafc;
+
+            font-size: 15px;
+
+            word-break: break-word;
+        }
+
+        /* URL */
+
+        .url {
+            color: #60a5fa !important;
+        }
+
+        /* CONTENT */
+
+        .content-box {
+            padding: 18px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.6);
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.08);
+
+            line-height: 1.7;
+
+            color: #cbd5e1;
+        }
+
+        .empty {
+            color: #94a3b8;
+
+            font-style: italic;
+        }
+
+        /* HEADINGS */
+
+        .heading-list {
+            list-style: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .heading-list li {
+            padding: 14px 16px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.6);
+
+            border-left: 4px solid #6366f1;
+
+            color: #cbd5e1;
+        }
+
+        .heading-tag {
+            display: inline-block;
+
+            margin-right: 10px;
+
+            padding: 4px 8px;
+
+            border-radius: 6px;
+
+            background:
+                rgba(99, 102, 241, 0.18);
+
+            color: #a5b4fc;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        /* KEYWORD TABLE */
+
+        .table-wrapper {
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            overflow: hidden;
+
+            border-radius: 12px;
+
+            background:
+                rgba(15, 23, 42, 0.65);
+        }
+
+        thead {
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+        }
+
+        th {
+            padding: 15px;
+
+            text-align: left;
+
+            color: #ffffff;
+
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px 15px;
+
+            border-bottom: 1px solid
+                rgba(255, 255, 255, 0.08);
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background:
+                rgba(255, 255, 255, 0.06);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            width: 60px;
+
+            color: #94a3b8;
+        }
+
+        td:nth-child(2) {
+            color: #ffffff;
+
+            font-weight: 600;
+        }
+
+        td:last-child {
+            color: #60a5fa;
+
+            font-weight: bold;
+        }
+
+        /* HR */
+
+        hr {
+            border: none;
+
+            height: 1px;
+
+            margin: 25px 0;
+
+            background:
+                rgba(255, 255, 255, 0.1);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .info-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .section-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .download-btn {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 25px 12px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .section h2 {
+                font-size: 20px;
+            }
+
+            th,
+            td {
+                padding: 12px 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <h1 class="page-title">
+        Anidrax Analysis Results
+    </h1>
+
+
+    <!-- WEBSITE INFORMATION -->
+
+    <div class="section">
+
+        <h2>
+            Website Information
+        </h2>
+
+        <div class="info-grid">
+
+
+            <!-- URL -->
+
+            <div class="info-card">
+
+                <strong>
+                    URL
+                </strong>
+
+                <span class="url">
+                    {{ url }}
+                </span>
+
+            </div>
+
+
+            <!-- FETCH METHOD -->
+
+            <div class="info-card">
+
+                <strong>
+                    Fetch Method
+                </strong>
+
+                <span>
+                    {{ fetch_method }}
+                </span>
+
+            </div>
+
+
+            <!-- WORD COUNT -->
+
+            <div class="info-card">
+
+                <strong>
+                    Word Count
+                </strong>
+
+                <span>
+                    {{ word_count }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="section">
+
+        <h2>
+            Title
+        </h2>
+
+        <div class="content-box">
+
+            {{ title|default:"No title found" }}
+
+        </div>
+
+    </div>
+
+
+    <!-- META DESCRIPTION -->
+
+    <div class="section">
+
+        <h2>
+            Meta Description
+        </h2>
+
+        <div class="content-box">
+
+            {{ meta_description|default:"No meta description found" }}
+
+        </div>
+
+    </div>
+
+
+    <!-- HEADINGS -->
+
+    <div class="section">
+
+        <h2>
+            Headings
+        </h2>
+
+        <ul class="heading-list">
+
+
+            {% for heading in headings %}
+
+                <li>
+
+                    <span class="heading-tag">
+                        {{ heading.tag }}
+                    </span>
+
+                    {{ heading.text }}
+
+                </li>
+
+            {% empty %}
+
+                <li class="empty">
+
+                    No headings found.
+
+                </li>
+
+            {% endfor %}
+
+
+        </ul>
+
+    </div>
+
+
+    <!-- KEYWORDS -->
+
+    <div class="section">
+
+
+        <!-- SECTION HEADER -->
+
+        <div class="section-header">
+
+            <h2>
+                Top Keywords
+            </h2>
+
+
+            <!-- DOWNLOAD EXCEL -->
+
+            <form
+                method="POST"
+                action="{% url 'download_excel' %}"
+            >
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="url"
+                    value="{{ url }}"
+                >
+
+                <button
+                    type="submit"
+                    class="download-btn"
+                >
+
+                    📊
+                    Download Excel
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- KEYWORD TABLE -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Keyword
+                        </th>
+
+                        <th>
+                            Frequency
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for keyword, count in keywords %}
+
+                        <tr>
+
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+
+                            <td>
+                                {{ keyword }}
+                            </td>
+
+                            <td>
+                                {{ count }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="3"
+                                class="empty"
+                            >
+                                No keywords found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
 
 </div>
 
