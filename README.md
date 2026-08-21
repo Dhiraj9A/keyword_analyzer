@@ -370,17 +370,3 @@ https://github.com/Dhiraj9A
 📄 License
 
 This project is currently developed for learning, experimentation, and further development.
-
-
-### Bas ab kya karna hai
-
-1. Project me `README.md` open karo.
-2. Purana content **Ctrl + A → Delete** karo.
-3. Upar wala content paste karo.
-4. `Ctrl + S`.
-5. Terminal me:
-
-```bash
-git add README.md
-git commit -m "Update README with AI SEO analyzer"
-git push origin main
